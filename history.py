@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import pickle
 from typing import List
 
@@ -42,5 +43,8 @@ def _save_history(chat_id: int, data: List[str]):
         pickle.dump(data, file)
 
 
-def _history_file_path(chat_id: int):
-    return f"./history_data/{chat_id}.pkl"
+def _history_file_path(chat_id: int) -> str:
+    path_str = f"./history_data/{chat_id}.pkl"
+    path = Path(path_str)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path_str
